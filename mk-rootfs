@@ -57,7 +57,8 @@ sudo umount ${rootfs} >> ${basedir}/log 2>&1 || true
 sudo mount -o loop ${basedir}/rootfs.img ${rootfs}
 
 echo "Bootstrapping filesystem... "
-sudo /sbin/debootstrap unstable ${rootfs} http://deb.debian.org/debian/ >> ${basedir}/log 2>&1
+sudo /sbin/debootstrap jammy ${rootfs} http://archive.ubuntu.com/ubuntu >> ${basedir}/log 2>&1
+# sudo /sbin/debootstrap unstable ${rootfs} http://deb.debian.org/debian/ >> ${basedir}/log 2>&1
 
 echo "Setting hostname: ${hostname}... "
 sudo sh -c "echo '${hostname}' > ${rootfs}/etc/hostname"

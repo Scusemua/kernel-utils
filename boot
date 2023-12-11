@@ -125,14 +125,15 @@ fi
 
 qemu_args=""
 append_args=""
-netdev_args="user,id=network0 -device e1000,netdev=network0"
+netdev_args="user,id=network0,hostfwd=tcp::5555-:22 -net nic -device e1000,netdev=network0"
 
 if [ "${boot_into_initrd_shell}" = "y" ]; then
   qemu_args="-initrd ${basedir}/initramfs.cpio.gz"
-  append_args="init=/init"
+  append_args="init=/init systemd.unified_cgroup_hierarchy=0"
 else
-  qemu_args="-hda ${basedir}/rootfs.img"
-  append_args="root=/dev/sda init=/lib/systemd/systemd"
+  # qemu_args="-hda ${basedir}/rootfs.img"
+  qemu_args="-drive file=${basedir}/rootfs.img,format=raw,index=0,media=disk"
+  append_args="root=/dev/sda init=/lib/systemd/systemd systemd.unified_cgroup_hierarchy=0"
 fi
 
 ${qemu} -m ${memory} -kernel ${bzImage} ${qemu_args} -nographic \

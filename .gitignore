@@ -15,3 +15,9 @@ log
 *.order
 *.symvers
 notes/
+src/*
+!src/linux/.config
+!src/linux/config-*
+*.iso
+*.img
+check-config.sh

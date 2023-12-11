@@ -33,13 +33,17 @@ recreate_initrd_dir() {
 }
 
 build_and_install_busybox() {
+  echo "Checking for existence of busybox directory at \"${busyboxdir}\""
   if [ ! -e ${busyboxdir} ]; then
     echo -n "Cloning busybox... "
     mkdir -p ${busyboxdir}
     (
       cd ${depsdir}
+      # [BEN]: I had to change the GitHub target from the SSH URL (i.e., "git@github.com:mirror/busybox.git")
+      # to the HTTPS URL (i.e., "https://github.com/mirror/busybox.git"), as I was getting a 
+      # "git@github.com: Permission denied (publickey)." error when using the SSH URL here...
       git clone --depth 1 --branch ${busybox_tag} \
-	      git@github.com:mirror/busybox.git >> ${basedir}/log 2>&1
+	      https://github.com/mirror/busybox.git >> ${basedir}/log 2>&1
       if [ $? -ne 0 ]; then
         echo "failed."
       else

@@ -3,7 +3,7 @@
 #compiler_flags="CC=clang HOSTCC=clang"
 
 # Number of processor threads
-procs=$(nproc)
+procs=8 #$(nproc)
 
 # Directory locations
 confdir=${basedir}/config
@@ -18,8 +18,8 @@ busyboxdir=${depsdir}/busybox
 busybox_tag=1_35_0
 
 hostname=wintermute
-rootfs_size=2048m
-memory=512m
+rootfs_size=8192m
+memory=2048m
 
 # Option to compile and copy kernel modules to rootfs
 copy_modules_to_rootfs=y
@@ -37,4 +37,4 @@ wait_for_gdb_at_boot=n
 qemu_debug_args="-s -S"
 
 # Packages to install on rootfs
-packages_to_install="systemd-resolved bpftrace bpfcc-tools gdb"
+packages_to_install="systemd-resolved bpftrace bpfcc-tools gdb vim"
